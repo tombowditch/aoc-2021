@@ -218,6 +218,9 @@ fn main() {
     // println!("{:#?}", gen_diagonal_line(8, 0, 0, 8));
 }
 
+/*
+ ! super verbose on purpose
+*/
 fn gen_diagonal_line(
     start_x: usize,
     end_x: usize,
