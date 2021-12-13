@@ -27,41 +27,35 @@ enum Fold {
 
 impl Fold {
     fn fold_board(&self, board: &mut Vec<(usize, usize)>) {
-        println!("do the fold man!! {:?}", self);
+        println!("fold {:?}", self);
         let mut new_board: Vec<(usize, usize)> = vec![];
 
         match self {
             Fold::X(c) => {
                 for (x, y) in board.clone() {
                     if x < *c {
-                        if !new_board.contains(&(x, y)) {
-                            new_board.push((x, y));
-                        }
+                        new_board.push((x, y));
                         continue;
                     }
 
                     let new_coord = ((c - (x - c)), y);
-                    if !new_board.contains(&new_coord) {
-                        new_board.push(new_coord);
-                    }
+                    new_board.push(new_coord);
                 }
             }
             Fold::Y(c) => {
                 for (x, y) in board.clone() {
                     if y < *c {
-                        if !new_board.contains(&(x, y)) {
-                            new_board.push((x, y));
-                        }
+                        new_board.push((x, y));
                         continue;
                     }
 
                     let new_coord = (x, (c - (y - c)));
-                    if !new_board.contains(&new_coord) {
-                        new_board.push(new_coord);
-                    }
+                    new_board.push(new_coord);
                 }
             }
         }
+        new_board.sort();
+        new_board.dedup();
 
         *board = new_board;
     }
@@ -175,6 +169,7 @@ fn render_board(board: &[(usize, usize)]) {
                 print!(" ");
             }
         }
+
         println!();
     }
 }
